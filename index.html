@@ -12,7 +12,7 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-.logo-img { height: 36px; width: auto; object-fit: contain; }
+.logo-img { height: 42px; width: auto; object-fit: contain; mix-blend-mode: multiply; }
 .btn-download {
   display: inline-flex; align-items: center; gap: 8px;
   background: #E8610A; color: #fff;
@@ -35,7 +35,7 @@
 
 /* Print / PDF styles */
 @media print {
-  .app-header, .progress-bar-wrap, .restart-row, .download-row { display: none !important; }
+  .app-header, .progress-bar-wrap, .restart-row, .download-row, .site-footer { display: none !important; }
   body { background: white; }
   .report-wrap { padding: 20px; max-width: 100%; }
   .report-hero { break-inside: avoid; }
@@ -110,12 +110,16 @@ body {
 
 /* ── HEADER ── */
 .app-header {
-  background: var(--navy);
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 12px rgba(15,30,53,0.05);
   padding: 0 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 60px;
+  height: 64px;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -131,17 +135,21 @@ body {
 .app-header .badge {
   font-size: 11px;
   font-weight: 600;
-  color: rgba(255,255,255,0.5);
+  color: var(--mid);
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: 999px;
 }
 
 /* ── PROGRESS BAR ── */
 .progress-bar-wrap {
-  background: var(--navy2);
+  background: var(--border);
   height: 3px;
   position: sticky;
-  top: 60px;
+  top: 64px;
   z-index: 99;
 }
 .progress-bar-fill {
@@ -704,6 +712,29 @@ body {
   .gap-row > *:nth-child(3),
   .gap-row > *:nth-child(4) { display: none; }
   .intro-wrap h1 { font-size: 28px; }
+}
+
+/* ── SITE FOOTER ── */
+.site-footer {
+  border-top: 1px solid var(--border);
+  background: var(--white);
+  padding: 20px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--mid);
+}
+.site-footer .dot { opacity: 0.5; }
+.site-footer .ver {
+  font-weight: 600;
+  color: var(--slate);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 2px 10px;
+  border-radius: 999px;
 }
 </style>
 </head>
@@ -1377,20 +1408,20 @@ function buildMaturityContext(pct, grade, statusCounts) {
         'Scoring in this range means your organization has made deliberate, consistent investments in IT infrastructure, security, and governance. The controls you have deployed are working together — MDM enforces device compliance, Conditional Access protects identities, and your policy framework ensures that people processes are as secure as your technology.',
         'Strong maturity is not a destination, it is a discipline. Organizations at this level face a different challenge: maintaining posture as the environment grows, as vendors change, and as threat actors evolve. The remaining gaps on your assessment represent the places where your current posture could be undermined.',
       ],
-      callout: '💡 CIO Landing recommendation: Shift focus to continuous validation — regular penetration testing, tabletop exercises, and quarterly control reviews. The organizations that hold this level don't coast; they audit themselves before attackers do.'
+      callout: '💡 CIO Landing recommendation: Shift focus to continuous validation — regular penetration testing, tabletop exercises, and quarterly control reviews. The organizations that hold this level don\'t coast; they audit themselves before attackers do.'
     },
     Developing: {
       heading: 'Your IT environment has a solid foundation — with meaningful gaps that carry real risk.',
       body: [
-        'Scoring in this range is common for organizations that have invested in some modern tooling but haven't yet connected all the pieces. You likely have good intentions around security and process, but execution is inconsistent — some controls are partial, some policies exist on paper but aren't enforced, and some critical items haven't been prioritized yet.',
-        'The risk at this level is that partial deployments can create a false sense of security. Having MDM enrolled on 80% of devices, or having Conditional Access policies that don't yet cover all apps, means your attack surface is larger than your tooling suggests.',
+        'Scoring in this range is common for organizations that have invested in some modern tooling but haven\'t yet connected all the pieces. You likely have good intentions around security and process, but execution is inconsistent — some controls are partial, some policies exist on paper but aren\'t enforced, and some critical items haven\'t been prioritized yet.',
+        'The risk at this level is that partial deployments can create a false sense of security. Having MDM enrolled on 80% of devices, or having Conditional Access policies that don\'t yet cover all apps, means your attack surface is larger than your tooling suggests.',
       ],
-      callout: '💡 CIO Landing recommendation: Focus on completing what you've started before adding new tools. Full deployment of existing controls almost always delivers more risk reduction than adding a new platform. Prioritize the Critical and High items in your gap list — they represent your most significant exposure.'
+      callout: '💡 CIO Landing recommendation: Focus on completing what you\'ve started before adding new tools. Full deployment of existing controls almost always delivers more risk reduction than adding a new platform. Prioritize the Critical and High items in your gap list — they represent your most significant exposure.'
     },
     'At Risk': {
       heading: 'Your IT environment has significant gaps that represent active risk to your business.',
       body: [
-        'Scoring in this range indicates that key security and operational controls are either missing or only partially in place. This is not uncommon — many growing organizations reach this point because IT investment hasn't kept pace with organizational complexity. Systems that worked for a 10-person company don't scale to 50 without deliberate effort.',
+        'Scoring in this range indicates that key security and operational controls are either missing or only partially in place. This is not uncommon — many growing organizations reach this point because IT investment hasn\'t kept pace with organizational complexity. Systems that worked for a 10-person company don\'t scale to 50 without deliberate effort.',
         'The gaps identified in your assessment are not theoretical. Missing MDM means a lost laptop is a data breach. No Conditional Access means a phished password is a full account compromise. No offboarding process means former employees may still have access to company systems right now.',
       ],
       callout: '💡 CIO Landing recommendation: Start with the Critical items on your gap list — they have the highest weight in your score and represent the controls that prevent the most damaging incidents. Many of these can be addressed within a single quarter with the right partner and a clear implementation plan.'
@@ -1401,7 +1432,7 @@ function buildMaturityContext(pct, grade, statusCounts) {
         'Scoring in this range indicates that foundational IT and security controls are largely absent. This creates substantial exposure across multiple vectors simultaneously — unmanaged devices, uncontrolled access, ungoverned data, and no process infrastructure to respond when something goes wrong.',
         'It is important to understand that this score reflects where you are today, not where you have to stay. Many organizations in this position reached it through rapid growth, limited IT resources, or inherited infrastructure — not through negligence. What matters now is establishing a clear, prioritized path forward.',
       ],
-      callout: '💡 CIO Landing recommendation: Don't try to fix everything at once. Start with three things: (1) MDM enrollment on all devices, (2) MFA and Conditional Access for all users, and (3) a formal offboarding checklist. These three controls alone will close your most critical exposure and create the foundation for everything else.'
+      callout: '💡 CIO Landing recommendation: Don\'t try to fix everything at once. Start with three things: (1) MDM enrollment on all devices, (2) MFA and Conditional Access for all users, and (3) a formal offboarding checklist. These three controls alone will close your most critical exposure and create the foundation for everything else.'
     }
   };
 
@@ -1479,5 +1510,13 @@ function downloadReport() {
 }
 
 </script>
+
+<footer class="site-footer">
+  <span class="ver">v3.1</span>
+  <span class="dot">·</span>
+  <span>Last updated: August 24, 2026</span>
+  <span class="dot">·</span>
+  <span>© 2026 CIO Landing — I.T. Simplified</span>
+</footer>
 </body>
 </html>
