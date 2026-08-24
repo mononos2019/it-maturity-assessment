@@ -78,6 +78,7 @@
 }
 .report-footer-brand img { height: 28px; opacity: 0.7; }
 .report-footer-brand p { font-size: 11px; color: var(--mid); margin-top: 8px; }
+.report-footer-brand .footer-contact { font-size: 10.5px; color: var(--mid); margin-top: 4px; line-height: 1.6; }
 
 
 :root {
@@ -1477,6 +1478,7 @@ function injectReportExtras(pct, grade, statusCounts) {
   footer.innerHTML = `
     <img src="${LOGO_DATA_URI}" alt="CIO Landing">
     <p>This assessment was prepared by CIO Landing · I.T. Simplified · ciolanding.com</p>
+    <p class="footer-contact">1 Northfield Plaza, Suite 300, Northfield, IL 60093 &nbsp;·&nbsp; 847-868-9253 &nbsp;·&nbsp; sales@ciolanding.com</p>
   `;
   wrap.appendChild(footer);
 }
