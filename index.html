@@ -900,51 +900,51 @@ const ITEMS = [
   // SECURITY
   { id:'dlp', cat:'security', importance:'Critical', weight:3,
     name:'Data Loss Prevention',
-    question:'How would you describe your organization\'s Data Loss Prevention (DLP) controls?',
+    question:'If an employee tried to email a sensitive file (like customer data or financials) outside the company, would anything stop them or alert someone?',
     options:[
-      { status:'full',    label:'Fully Deployed',     desc:'DLP policies are actively enforced across email, cloud uploads, and devices via Microsoft Purview or equivalent.' },
-      { status:'partial', label:'Partially Deployed', desc:'Some DLP rules exist but coverage is incomplete — not all channels or data types are protected.' },
-      { status:'none',    label:'Not in Place',       desc:'No DLP tooling or policies are in place. Data can leave the organization without controls or alerts.' },
+      { status:'full',    label:'Fully Deployed',     desc:'Yes — we automatically block or flag sensitive data before it can leave the company, across email, cloud storage, and devices.' },
+      { status:'partial', label:'Partially Deployed', desc:'Somewhat — we catch it in some places (like email) but not everywhere (like cloud uploads or USB drives).' },
+      { status:'none',    label:'Not in Place',       desc:'No — sensitive data could leave the company and nobody would know.' },
     ],
     why:'A single data breach can trigger regulatory fines, reputational damage, and loss of customer trust. DLP is a primary control required by most cyber insurers and compliance frameworks.' },
 
   { id:'ca', cat:'security', importance:'Critical', weight:3,
     name:'Conditional Access Policy',
-    question:'Are Conditional Access policies enforced for all users accessing company systems?',
+    question:'Can employees only log in from approved devices, or could someone log in from any random laptop or phone using just a password?',
     options:[
-      { status:'full',    label:'Fully Deployed',     desc:'Conditional Access rules require MFA, block legacy auth, and restrict unmanaged/non-compliant devices for all users.' },
-      { status:'partial', label:'Partially Deployed', desc:'Conditional Access is configured but not enforced for all users, apps, or device types.' },
-      { status:'none',    label:'Not in Place',       desc:'No Conditional Access policies exist. Anyone with valid credentials can log in from any device or location.' },
+      { status:'full',    label:'Fully Deployed',     desc:'No — every login requires a second verification step (like a phone approval), and only approved, secure devices are allowed in.' },
+      { status:'partial', label:'Partially Deployed', desc:'Somewhat — this is required for some employees or apps, but not everyone.' },
+      { status:'none',    label:'Not in Place',       desc:'Yes — an employee could check their work email from a home computer, personal phone, or any device, using just their password.' },
     ],
     why:'Without Conditional Access, stolen credentials alone can compromise your entire environment. This is a foundational Zero Trust control required by most cyber liability insurers.' },
 
   { id:'sase', cat:'security', importance:'High', weight:2,
     name:'SASE — Secure Access Service Edge',
-    question:'Does your organization use a cloud-delivered security architecture (SASE) to protect users wherever they work?',
+    question:'When employees work from home, a coffee shop, or while traveling, are they protected by the same security as if they were sitting in the office?',
     options:[
-      { status:'full',    label:'Fully Deployed',     desc:'SASE is in place, enforcing consistent security policy (firewall, SWG, ZTNA) for all users regardless of location.' },
-      { status:'partial', label:'Partially Deployed', desc:'Some SASE components are deployed (e.g., cloud firewall or ZTNA) but the architecture is incomplete.' },
-      { status:'none',    label:'Not in Place',       desc:'No SASE architecture. Remote users are protected by VPN only or not at all outside the office network.' },
+      { status:'full',    label:'Fully Deployed',     desc:'Yes — no matter where they connect from, employees get the same protection (blocked threats, filtered web access) as if they were in the office.' },
+      { status:'partial', label:'Partially Deployed', desc:'Somewhat — some of that protection follows them, but not all of it.' },
+      { status:'none',    label:'Not in Place',       desc:'No — once employees leave the office, they\'re largely on their own, protected only by a basic VPN (or nothing at all).' },
     ],
     why:'Traditional perimeter security fails in a cloud-first, hybrid-work world. SASE extends security policy to every user and device wherever they connect, eliminating the concept of a trusted internal network.' },
 
   { id:'pam', cat:'security', importance:'High', weight:2,
     name:'PAM — Privileged Access Management',
-    question:'How are privileged and administrative accounts managed in your organization?',
+    question:'For the handful of "master key" admin accounts that can access everything — are those passwords locked down and tracked, or could someone use them quietly without anyone knowing?',
     options:[
-      { status:'full',    label:'Fully Deployed',     desc:'Admin credentials are vaulted and rotated automatically. No standing admin access — privileges are granted just-in-time with full audit logging.' },
-      { status:'partial', label:'Partially Deployed', desc:'Some admin accounts are managed, but not all privileged access is vaulted, rotated, or audited consistently.' },
-      { status:'none',    label:'Not in Place',       desc:'Admin accounts use shared or persistent credentials with no vaulting, rotation, or audit trail.' },
+      { status:'full',    label:'Fully Deployed',     desc:'Locked down — admin passwords are stored in a secure vault, changed automatically, and every use is logged. Nobody has "always-on" admin access.' },
+      { status:'partial', label:'Partially Deployed', desc:'Somewhat — some admin accounts are managed this way, but not all of them.' },
+      { status:'none',    label:'Not in Place',       desc:'No — admin passwords are shared or never changed, and there\'s no record of who used them or when.' },
     ],
     why:'Privileged accounts are the highest-value target in any breach. PAM eliminates persistent admin credentials that attackers can steal and reuse, and provides a full audit trail of every privileged action.' },
 
   { id:'sso', cat:'security', importance:'Critical', weight:3,
     name:'Company-Owned Device SSO Restriction',
-    question:'Is Single Sign-On (SSO) access restricted to company-owned, MDM-enrolled devices only?',
+    question:'Can employees only access company systems from company-managed devices, or could they log in just as easily from their personal phone or laptop?',
     options:[
-      { status:'full',    label:'Fully Deployed',     desc:'Only MDM-enrolled, company-owned devices can authenticate via SSO. Personal devices are blocked by policy.' },
-      { status:'partial', label:'Partially Deployed', desc:'SSO restrictions exist but personal devices can still access some applications or there are exceptions.' },
-      { status:'none',    label:'Not in Place',       desc:'Any device — personal or company-owned — can access company systems via SSO with valid credentials.' },
+      { status:'full',    label:'Fully Deployed',     desc:'Only company-owned, IT-managed devices can log in. Personal phones and laptops are blocked, even with the right password.' },
+      { status:'partial', label:'Partially Deployed', desc:'Somewhat — this is enforced for some systems, but personal devices can still get into others.' },
+      { status:'none',    label:'Not in Place',       desc:'No — an employee\'s personal phone or home laptop can log in just as easily as a company laptop.' },
     ],
     why:'Unmanaged personal devices fall entirely outside IT security controls — no endpoint protection, no remote wipe capability. Restricting SSO closes one of the most common breach pathways.' },
 
@@ -1715,7 +1715,7 @@ function downloadReport() {
 </script>
 
 <footer class="site-footer">
-  <span class="ver">v3.3</span>
+  <span class="ver">v3.4</span>
   <span class="dot">·</span>
   <span>Last updated: August 24, 2026</span>
   <span class="dot">·</span>
