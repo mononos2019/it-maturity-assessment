@@ -428,6 +428,21 @@ body {
   line-height: 1.5;
 }
 
+.q-geek {
+  margin-top: 10px;
+  padding: 8px 14px;
+  background: #F8FAFC;
+  border: 1px dashed #CBD5E1;
+  border-radius: 7px;
+  font-size: 11.5px;
+  color: #64748B;
+  line-height: 1.5;
+}
+.q-geek b {
+  color: #475569;
+  font-weight: 700;
+}
+
 .opt-status {
   font-size: 10px;
   font-weight: 700;
@@ -906,7 +921,8 @@ const ITEMS = [
       { status:'partial', label:'Partially Deployed', desc:'Somewhat — we catch it in some places (like email) but not everywhere (like cloud uploads or USB drives).' },
       { status:'none',    label:'Not in Place',       desc:'No — sensitive data could leave the company and nobody would know.' },
     ],
-    why:'A single data breach can trigger regulatory fines, reputational damage, and loss of customer trust. DLP is a primary control required by most cyber insurers and compliance frameworks.' },
+    why:'A single data breach can trigger regulatory fines, reputational damage, and loss of customer trust. DLP is a primary control required by most cyber insurers and compliance frameworks.',
+    geek:'Refers to Data Loss Prevention (DLP) policies enforced via Microsoft Purview, Google Workspace DLP, or equivalent — covering email, cloud uploads, and endpoint channels.' },
 
   { id:'ca', cat:'security', importance:'Critical', weight:3,
     name:'Conditional Access Policy',
@@ -916,7 +932,8 @@ const ITEMS = [
       { status:'partial', label:'Partially Deployed', desc:'Somewhat — this is required for some employees or apps, but not everyone.' },
       { status:'none',    label:'Not in Place',       desc:'Yes — an employee could check their work email from a home computer, personal phone, or any device, using just their password.' },
     ],
-    why:'Without Conditional Access, stolen credentials alone can compromise your entire environment. This is a foundational Zero Trust control required by most cyber liability insurers.' },
+    why:'Without Conditional Access, stolen credentials alone can compromise your entire environment. This is a foundational Zero Trust control required by most cyber liability insurers.',
+    geek:'Refers to Conditional Access policies (e.g., Microsoft Entra Conditional Access) enforcing MFA, blocking legacy auth, and requiring managed/compliant devices.' },
 
   { id:'sase', cat:'security', importance:'High', weight:2,
     name:'SASE — Secure Access Service Edge',
@@ -926,7 +943,8 @@ const ITEMS = [
       { status:'partial', label:'Partially Deployed', desc:'Somewhat — some of that protection follows them, but not all of it.' },
       { status:'none',    label:'Not in Place',       desc:'No — once employees leave the office, they\'re largely on their own, protected only by a basic VPN (or nothing at all).' },
     ],
-    why:'Traditional perimeter security fails in a cloud-first, hybrid-work world. SASE extends security policy to every user and device wherever they connect, eliminating the concept of a trusted internal network.' },
+    why:'Traditional perimeter security fails in a cloud-first, hybrid-work world. SASE extends security policy to every user and device wherever they connect, eliminating the concept of a trusted internal network.',
+    geek:'Refers to a SASE (Secure Access Service Edge) architecture — cloud-delivered firewall, SWG, and ZTNA — via platforms like Zscaler, Cato Networks, or Cisco Umbrella.' },
 
   { id:'pam', cat:'security', importance:'High', weight:2,
     name:'PAM — Privileged Access Management',
@@ -936,7 +954,8 @@ const ITEMS = [
       { status:'partial', label:'Partially Deployed', desc:'Somewhat — some admin accounts are managed this way, but not all of them.' },
       { status:'none',    label:'Not in Place',       desc:'No — admin passwords are shared or never changed, and there\'s no record of who used them or when.' },
     ],
-    why:'Privileged accounts are the highest-value target in any breach. PAM eliminates persistent admin credentials that attackers can steal and reuse, and provides a full audit trail of every privileged action.' },
+    why:'Privileged accounts are the highest-value target in any breach. PAM eliminates persistent admin credentials that attackers can steal and reuse, and provides a full audit trail of every privileged action.',
+    geek:'Refers to Privileged Access Management (PAM) — credential vaulting, rotation, and just-in-time access via tools like CyberArk, BeyondTrust, or Microsoft Entra PIM.' },
 
   { id:'sso', cat:'security', importance:'Critical', weight:3,
     name:'Company-Owned Device SSO Restriction',
@@ -946,48 +965,53 @@ const ITEMS = [
       { status:'partial', label:'Partially Deployed', desc:'Somewhat — this is enforced for some systems, but personal devices can still get into others.' },
       { status:'none',    label:'Not in Place',       desc:'No — an employee\'s personal phone or home laptop can log in just as easily as a company laptop.' },
     ],
-    why:'Unmanaged personal devices fall entirely outside IT security controls — no endpoint protection, no remote wipe capability. Restricting SSO closes one of the most common breach pathways.' },
+    why:'Unmanaged personal devices fall entirely outside IT security controls — no endpoint protection, no remote wipe capability. Restricting SSO closes one of the most common breach pathways.',
+    geek:'Refers to restricting SSO authentication to MDM-enrolled, compliant devices — typically enforced via Conditional Access device compliance policies.' },
 
   { id:'admin', cat:'security', importance:'Critical', weight:3,
     name:'No Local Admin Rights',
-    question:'Do end users operate without local administrator rights on their devices?',
+    question:'Can employees install any software they want on their work laptop, or does IT need to approve it first?',
     options:[
-      { status:'full',    label:'Fully Deployed',     desc:'Users have standard accounts only. All software installs and system changes require IT-controlled approval or formal elevation.' },
-      { status:'partial', label:'Partially Deployed', desc:'Most users are standard accounts but some roles or legacy users still have local admin rights.' },
-      { status:'none',    label:'Not in Place',       desc:'Users have local admin rights on their devices with no restriction or elevation management process.' },
+      { status:'full',    label:'Fully Deployed',     desc:'IT must approve — employees can\'t install software or change system settings on their own.' },
+      { status:'partial', label:'Partially Deployed', desc:'Somewhat — most employees need approval, but a few people can still install anything they want.' },
+      { status:'none',    label:'Not in Place',       desc:'No — any employee can install anything on their laptop, including things that could carry malware.' },
     ],
-    why:'Local admin rights are how malware spreads and attackers escalate privileges after initial compromise. Removing them is a key benchmark in CIS Controls and NIST frameworks.' },
+    why:'Local admin rights are how malware spreads and attackers escalate privileges after initial compromise. Removing them is a key benchmark in CIS Controls and NIST frameworks.',
+    geek:'Refers to removing local admin rights from standard user accounts, using tools like Microsoft Intune Endpoint Privilege Management or similar elevation solutions.' },
 
   { id:'insurance', cat:'security', importance:'High', weight:2,
     name:'Cyber Insurance',
-    question:'Does your organization carry an active cyber liability insurance policy?',
+    question:'If your company got hit by ransomware or a data breach tomorrow, would cyber insurance help cover the cost?',
     options:[
-      { status:'full',    label:'Fully Deployed',     desc:'Active policy in place covering incident response, ransomware, breach notification, and business interruption. Controls are documented for the insurer.' },
-      { status:'partial', label:'Partially Deployed', desc:'Some coverage exists but may be outdated, under-scoped, or the controls required by the insurer have not been fully implemented.' },
-      { status:'none',    label:'Not in Place',       desc:'No cyber liability insurance. The organization bears full financial exposure from any incident.' },
+      { status:'full',    label:'Fully Deployed',     desc:'Yes — we have an active policy that covers ransomware, breach response, and lost business, and our security controls meet what the insurer requires.' },
+      { status:'partial', label:'Partially Deployed', desc:'Somewhat — we have a policy, but it may be outdated or we haven\'t fully met what the insurer requires to actually pay out.' },
+      { status:'none',    label:'Not in Place',       desc:'No — we have no coverage. If something happens, the company pays for all of it out of pocket.' },
     ],
-    why:'Cyber insurers now conduct rigorous control assessments before issuing policies. Active coverage confirms your organization has cleared a documented baseline security review and is financially protected.' },
+    why:'Cyber insurers now conduct rigorous control assessments before issuing policies. Active coverage confirms your organization has cleared a documented baseline security review and is financially protected.',
+    geek:'Refers to an active cyber liability policy requiring documented controls (MFA, EDR, backups, etc.) as a condition of coverage.' },
 
   // DEVICE & ENDPOINT
   { id:'mdm', cat:'device', importance:'Critical', weight:3,
     name:'MDM — Mobile Device Management',
-    question:'Is a Mobile Device Management (MDM) platform deployed across all company endpoints?',
+    question:'If an employee\'s laptop or phone was lost or stolen, could IT remotely lock it or wipe the company data off of it?',
     options:[
-      { status:'full',    label:'Fully Deployed',     desc:'All company devices are enrolled in MDM (Intune, Jamf, or Kandji). Policies are centrally pushed and compliance is continuously monitored.' },
-      { status:'partial', label:'Partially Deployed', desc:'MDM is deployed but not all devices are enrolled, or policies are inconsistently applied across the fleet.' },
-      { status:'none',    label:'Not in Place',       desc:'No MDM platform. IT has no centralized control, remote wipe capability, or compliance visibility over company devices.' },
+      { status:'full',    label:'Fully Deployed',     desc:'Yes — every company device can be remotely locked, wiped, or checked for security compliance at any time.' },
+      { status:'partial', label:'Partially Deployed', desc:'Somewhat — this works for some devices, but not all of them are set up this way.' },
+      { status:'none',    label:'Not in Place',       desc:'No — if a device was lost or stolen, IT would have no way to lock it or erase company data remotely.' },
     ],
-    why:'Without MDM, IT has zero visibility or control over devices once they leave the office. MDM enables remote wipe, patch enforcement, and the compliance signals that feed Conditional Access decisions.' },
+    why:'Without MDM, IT has zero visibility or control over devices once they leave the office. MDM enables remote wipe, patch enforcement, and the compliance signals that feed Conditional Access decisions.',
+    geek:'Refers to deploying an MDM platform (Microsoft Intune, Jamf, or Kandji) across all endpoints for centralized policy enforcement and remote wipe.' },
 
   { id:'devices', cat:'device', importance:'High', weight:2,
     name:'Standardized Device Fleet & Refresh Cycle',
-    question:'Does your organization follow a defined hardware standard with a maximum 3-year refresh cycle?',
+    question:'Are employee laptops replaced on a regular schedule (every few years), or do people keep using the same computer until it breaks?',
     options:[
-      { status:'full',    label:'Fully Deployed',     desc:'All devices meet a CIO-approved hardware standard. No device in active use exceeds 3 years. Replacements are scheduled proactively.' },
-      { status:'partial', label:'Partially Deployed', desc:'A standard exists but some devices are older than 3 years, or refresh cycles are reactive rather than scheduled.' },
-      { status:'none',    label:'Not in Place',       desc:'No hardware standard or refresh cycle. Devices are replaced only when they fail, resulting in a mixed, aging fleet.' },
+      { status:'full',    label:'Fully Deployed',     desc:'Yes — every laptop is replaced on a set schedule, and nothing in use is older than 3 years.' },
+      { status:'partial', label:'Partially Deployed', desc:'Somewhat — we have a plan, but some laptops are older than 3 years or only get replaced when they break.' },
+      { status:'none',    label:'Not in Place',       desc:'No — laptops are only replaced when they die, so we have a mix of old and new equipment with no real schedule.' },
     ],
-    why:'Hardware older than 3 years introduces firmware/TPM gaps for modern security features, increases support ticket volume, and degrades employee productivity. Standardization reduces support complexity.' },
+    why:'Hardware older than 3 years introduces firmware/TPM gaps for modern security features, increases support ticket volume, and degrades employee productivity. Standardization reduces support complexity.',
+    geek:'Refers to a standardized hardware fleet with a max 3-year refresh cycle, ensuring firmware/TPM compatibility with modern security features (e.g., Windows 11 hardware requirements).' },
 
   // NETWORK
   { id:'network', cat:'network', importance:'High', weight:2,
@@ -1205,6 +1229,9 @@ function renderPage(idx) {
 
     if (item.note) {
       html += `<div class="q-note">💡 ${item.note}</div>`;
+    }
+    if (item.geek) {
+      html += `<div class="q-geek"><b>🔧 For IT:</b> ${item.geek}</div>`;
     }
     html += `</div></div>`;
   });
@@ -1715,7 +1742,7 @@ function downloadReport() {
 </script>
 
 <footer class="site-footer">
-  <span class="ver">v3.4</span>
+  <span class="ver">v3.5</span>
   <span class="dot">·</span>
   <span>Last updated: August 24, 2026</span>
   <span class="dot">·</span>
