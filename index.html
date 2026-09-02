@@ -1225,8 +1225,6 @@ function renderPage(idx) {
 
     item.options.forEach(opt => {
       const sel = savedAnswer === opt.status ? 'selected' : '';
-      const statusClass = opt.status === 'full' ? 'status-full' : opt.status === 'partial' ? 'status-partial' : 'status-none';
-      const statusLabel = opt.status === 'full' ? 'Fully Deployed' : opt.status === 'partial' ? 'Partially Deployed' : 'Not in Place';
       html += `
           <div class="answer-opt ${sel}" onclick="selectAnswer('${item.id}', '${opt.status}', this)">
             <div class="opt-radio"></div>
@@ -1234,7 +1232,6 @@ function renderPage(idx) {
               <div class="opt-label">${opt.label}</div>
               <div class="opt-desc">${opt.desc}</div>
             </div>
-            <div class="opt-status ${statusClass}">${statusLabel}</div>
           </div>`;
     });
 
@@ -1753,7 +1750,7 @@ function downloadReport() {
 </script>
 
 <footer class="site-footer">
-  <span class="ver">v3.8</span>
+  <span class="ver">v3.9</span>
   <span class="dot">·</span>
   <span>Last updated: August 24, 2026</span>
   <span class="dot">·</span>
