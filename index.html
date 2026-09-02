@@ -1027,55 +1027,60 @@ const ITEMS = [
 
   { id:'internet', cat:'network', importance:'High', weight:2,
     name:'Redundant Internet Connectivity',
-    question:'Does each office location have a secondary internet connection with tested failover?',
+    question:'If your main internet connection went down, would the office switch to a backup automatically, or would everyone just stop working?',
     options:[
-      { status:'full',    label:'Fully Deployed',     desc:'Secondary circuit (different ISP/technology) is in place with automatic failover. Failover is tested on a regular cadence.' },
-      { status:'partial', label:'Partially Deployed', desc:'A backup connection exists but failover is manual, untested, or only available at some locations.' },
-      { status:'none',    label:'Not in Place',       desc:'Single internet connection per location. An outage stops all operations with no failover path.' },
+      { status:'full',    label:'Fully Deployed',     desc:'Yes — we have a backup internet connection that kicks in automatically, and we test it regularly to make sure it actually works.' },
+      { status:'partial', label:'Partially Deployed', desc:'Somewhat — we have a backup, but someone has to switch to it manually, or it\'s untested, or not every office has one.' },
+      { status:'none',    label:'Not in Place',       desc:'No — if our internet goes down, the entire office stops working until it\'s fixed.' },
     ],
-    why:'For a cloud-first organization, internet connectivity is functionally equivalent to power. A single point of failure here stops all operations. Tested redundancy is a foundational business continuity control.' },
+    why:'For a cloud-first organization, internet connectivity is functionally equivalent to power. A single point of failure here stops all operations. Tested redundancy is a foundational business continuity control.',
+    geek:'Refers to a secondary internet circuit (different ISP/technology, e.g., cable + fiber or fixed wireless) with automatic BGP or SD-WAN failover, tested on a regular cadence.' },
 
   { id:'voip', cat:'network', importance:'Medium', weight:1,
     name:'VoIP — Cloud Phone System',
-    question:'Has your organization replaced legacy PBX hardware with a cloud-based VoIP system?',
+    question:'If the office building lost power or an employee worked from home, would your phone system still work?',
     options:[
-      { status:'full',    label:'Fully Deployed',     desc:'100% cloud VoIP. No on-premise PBX hardware. Call routing, voicemail, and conferencing managed via vendor portal.' },
-      { status:'partial', label:'Partially Deployed', desc:'Some locations or users are on cloud VoIP but on-premise PBX hardware still exists and is in active use.' },
-      { status:'none',    label:'Not in Place',       desc:'On-premise PBX in use. Phone system is hardware-dependent and not integrated with cloud collaboration tools.' },
+      { status:'full',    label:'Fully Deployed',     desc:'Yes — our phone system runs entirely in the cloud, so calls, voicemail, and conferencing work from anywhere, even if the office loses power.' },
+      { status:'partial', label:'Partially Deployed', desc:'Somewhat — some of our phone system is cloud-based, but we still rely on physical phone equipment in the office.' },
+      { status:'none',    label:'Not in Place',       desc:'No — our phones depend on equipment physically sitting in the office. If it loses power or fails, the phones go down.' },
     ],
-    why:'Cloud VoIP eliminates on-premise hardware maintenance, enables full phone functionality for remote employees, and integrates natively with M365 and other collaboration platforms.' },
+    why:'Cloud VoIP eliminates on-premise hardware maintenance, enables full phone functionality for remote employees, and integrates natively with M365 and other collaboration platforms.',
+    geek:'Refers to replacing legacy on-premise PBX hardware with a cloud VoIP platform (e.g., Microsoft Teams Phone, RingCentral, Zoom Phone) for call routing, voicemail, and conferencing.' },
 
   { id:'print', cat:'network', importance:'Medium', weight:1,
     name:'Cloud-Managed Print Solution',
-    question:'Is printing handled through a cloud-managed print platform rather than a local print server or direct network printers?',
+    question:'Are your office printers managed and monitored remotely by IT, or are they just sitting on the network as an open door for anyone to find?',
     options:[
-      { status:'full',    label:'Fully Deployed',     desc:'Cloud print management in place (e.g., Microsoft Universal Print, PaperCut Hive). No print server. Printers are not directly network-exposed.' },
-      { status:'partial', label:'Partially Deployed', desc:'Some cloud print management exists but a local print server is still in use, or some printers are still directly network-accessible.' },
-      { status:'none',    label:'Not in Place',       desc:'Traditional print server or direct network-connected printers with no centralized cloud management.' },
+      { status:'full',    label:'Fully Deployed',     desc:'Managed — printers are controlled through a secure cloud service, and new employees automatically get the right printers set up without IT manually configuring each one.' },
+      { status:'partial', label:'Partially Deployed', desc:'Somewhat — some printers are managed this way, but others are still set up the old way.' },
+      { status:'none',    label:'Not in Place',       desc:'Open door — printers sit directly on the network with outdated software and no central oversight, which hackers commonly target.' },
     ],
-    why:'Legacy network-attached printers are a frequently exploited attack vector — typically running outdated firmware. Cloud print management removes printers from direct network exposure and centralizes access governance.' },
+    why:'Legacy network-attached printers are a frequently exploited attack vector — typically running outdated firmware. Cloud print management removes printers from direct network exposure and centralizes access governance.',
+    geek:'Refers to cloud print management (e.g., Microsoft Universal Print, PaperCut Hive) replacing a local print server or directly network-exposed printers. Auto-provisions printers for new employees during onboarding — no manual mapping required.' },
 
   // CLOUD & PLATFORM
   { id:'noservers', cat:'cloud', importance:'High', weight:2,
     name:'No On-Premise Servers',
-    question:'Does your organization operate with zero on-premise servers for any core business function?',
+    question:'If a fire, flood, or hardware failure destroyed your office overnight, would your business systems and data still be safe and accessible?',
     options:[
-      { status:'full',    label:'Fully Deployed',     desc:'No on-premise servers for any business function. All compute, storage, and applications run in cloud platforms.' },
-      { status:'partial', label:'Partially Deployed', desc:'Most systems are cloud-hosted but some on-premise servers remain for specific functions or legacy applications.' },
-      { status:'none',    label:'Not in Place',       desc:'Significant on-premise server infrastructure in use. IT carries the full burden of physical maintenance, patching, and hardware refresh.' },
+      { status:'full',    label:'Fully Deployed',     desc:'Yes — everything runs in the cloud. There\'s no physical server in our office that could be destroyed or fail.' },
+      { status:'partial', label:'Partially Deployed', desc:'Somewhat — most of our systems are in the cloud, but a few still depend on a physical server in the office.' },
+      { status:'none',    label:'Not in Place',       desc:'No — we still rely heavily on physical servers sitting in our office, which means real physical risk and ongoing maintenance costs.' },
     ],
-    why:'Eliminating on-premise servers removes the burden of physical security, power, cooling, and hardware refresh. Disaster recovery and resilience are handled by cloud providers built for that purpose.' },
+    why:'Eliminating on-premise servers removes the burden of physical security, power, cooling, and hardware refresh. Disaster recovery and resilience are handled by cloud providers built for that purpose.',
+    geek:'Refers to eliminating on-premise server infrastructure entirely, with all compute, storage, and applications hosted in cloud platforms (Azure, AWS, SaaS).' },
 
   { id:'sharepoint', cat:'cloud', importance:'High', weight:2,
     name:'Cloud Document Management Platform',
-    question:'Does your organization use a professional cloud document management platform with group-based permissions and SSO for all users?',
+    question:'Do you have one official place where all company files live with controlled access, or are files scattered across personal Dropbox accounts, USB drives, and random folders?',
     options:[
-      { status:'full',    label:'Fully Deployed',     desc:'A professional cloud platform (SharePoint/OneDrive, Google Workspace, Egnyte, or equivalent) is the single source of truth for all business data. Group-based permissions and SSO are enforced. No unmanaged shadow storage.' },
-      { status:'partial', label:'Partially Deployed', desc:'A cloud platform is in use but group permissions or SSO are not fully enforced, or shadow storage (personal Dropbox, local NAS, unmanaged drives) still exists alongside it.' },
-      { status:'none',    label:'Not in Place',       desc:'No designated cloud document platform. Data is scattered across local drives, personal cloud accounts, and unmanaged storage with no access governance.' },
+      { status:'full',    label:'Fully Deployed',     desc:'Yes — all company files live in one secure, official system, and access is controlled by role. No personal Dropbox folders or random storage floating around.' },
+      { status:'partial', label:'Partially Deployed', desc:'Somewhat — we have an official system, but some files still live outside it in personal accounts or unmanaged drives.' },
+      { status:'none',    label:'Not in Place',       desc:'No — files are scattered across personal accounts, local drives, and random storage with no consistent control over who can access what.' },
     ],
     why:'Centralizing on a professional cloud document platform enables consistent access governance, SSO-based authentication, group-level permissions, and audit logging across all company files. Data sprawl across unmanaged storage makes breach containment and offboarding nearly impossible.',
-    note:'Microsoft 365 environments should use SharePoint/OneDrive. Google Workspace environments should use Google Drive. Egnyte or equivalent professional platforms are also acceptable — what matters is that the platform is cloud-hosted, supports SSO, and enforces group-based permissions.' },
+    note:'Microsoft 365 environments should use SharePoint/OneDrive. Google Workspace environments should use Google Drive. Egnyte or equivalent professional platforms are also acceptable — what matters is that the platform is cloud-hosted, supports SSO, and enforces group-based permissions.',
+    geek:'Refers to a professional cloud document platform (SharePoint/OneDrive, Google Workspace, or Egnyte) as the single source of truth, with group-based permissions and SSO enforced — no shadow IT storage.' },
 
   { id:'license', cat:'cloud', importance:'Critical', weight:3,
     name:'Microsoft 365 Business Premium Licensing',
@@ -1743,7 +1748,7 @@ function downloadReport() {
 </script>
 
 <footer class="site-footer">
-  <span class="ver">v3.6</span>
+  <span class="ver">v3.7</span>
   <span class="dot">·</span>
   <span>Last updated: August 24, 2026</span>
   <span class="dot">·</span>
