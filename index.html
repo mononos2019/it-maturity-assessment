@@ -1084,54 +1084,59 @@ const ITEMS = [
 
   { id:'license', cat:'cloud', importance:'Critical', weight:3,
     name:'Microsoft 365 Business Premium Licensing',
-    question:'Are all users licensed at Microsoft 365 Business Premium or higher?',
+    question:'Are you paying for the Microsoft 365 plan that actually includes the security tools (device management, antivirus, data protection), or a cheaper plan that doesn\'t have them?',
     options:[
-      { status:'full',    label:'Fully Deployed',     desc:'All users on M365 Business Premium (or E3/E5). Intune, Defender for Business, Entra ID P1, and Purview are all available and in use.' },
-      { status:'partial', label:'Partially Deployed', desc:'Some users are on Business Premium but others are on lower tiers (Business Basic/Standard), limiting available security controls.' },
-      { status:'none',    label:'Not in Place',       desc:'Organization is on M365 Business Basic or Standard. Intune, Defender for Business, Conditional Access, and DLP are not available.' },
+      { status:'full',    label:'Fully Deployed',     desc:'Yes — everyone is on the plan that includes device management, built-in antivirus, and data protection tools.' },
+      { status:'partial', label:'Partially Deployed', desc:'Somewhat — some employees have the higher plan, but others are on a cheaper plan without those security tools.' },
+      { status:'none',    label:'Not in Place',       desc:'No — we\'re on a cheaper plan, which means we don\'t have access to key security tools at all.' },
     ],
-    why:'Business Premium is the licensing prerequisite for the majority of items on this assessment. Without it, Intune MDM, Conditional Access, Defender, and Purview DLP are unavailable — making a modern security stack impossible.' },
+    why:'Business Premium is the licensing prerequisite for the majority of items on this assessment. Without it, Intune MDM, Conditional Access, Defender, and Purview DLP are unavailable — making a modern security stack impossible.',
+    geek:'Refers to Microsoft 365 Business Premium (or E3/E5) licensing, which unlocks Intune, Defender for Business, Entra ID P1 (Conditional Access), and Purview DLP — unavailable on Business Basic/Standard.' },
 
   // POLICY & OPS
   { id:'hiretermination', cat:'policy', importance:'Critical', weight:3,
     name:'Hire / Termination IT Policy',
-    question:'Does your organization have formally documented and consistently executed IT onboarding and offboarding procedures?',
+    question:'When someone leaves the company, is their access to email, files, and systems cut off immediately, or could a former employee still log in weeks later?',
     options:[
-      { status:'full',    label:'Fully Deployed',     desc:'Documented procedures cover account provisioning on hire and immediate deactivation, license reclamation, and device retrieval on termination — executed every time.' },
-      { status:'partial', label:'Partially Deployed', desc:'Procedures exist but are inconsistently followed. Some offboarding steps are missed or delayed, leaving access windows open.' },
-      { status:'none',    label:'Not in Place',       desc:'No formal IT onboarding/offboarding process. Former employees may still have active accounts and system access.' },
+      { status:'full',    label:'Fully Deployed',     desc:'Cut off immediately — access is revoked the moment someone leaves, every time, following a documented checklist.' },
+      { status:'partial', label:'Partially Deployed', desc:'Somewhat — we have a process, but it\'s not always followed consistently, so access sometimes lingers.' },
+      { status:'none',    label:'Not in Place',       desc:'No — there\'s no formal process, so former employees could still have working access after they leave.' },
     ],
-    why:'Orphaned accounts from former employees are one of the most preventable and frequently exploited breach vectors. A well-executed offboarding process ensures terminated users lose all access instantly.' },
+    why:'Orphaned accounts from former employees are one of the most preventable and frequently exploited breach vectors. A well-executed offboarding process ensures terminated users lose all access instantly.',
+    geek:'Refers to documented onboarding/offboarding procedures covering account provisioning, immediate deactivation, license reclamation, and device retrieval — consistently executed for every hire/termination.' },
 
   { id:'retention', cat:'policy', importance:'High', weight:2,
     name:'Data Retention & Disposition Policy',
-    question:'Does your organization have a formally documented and technically enforced data retention policy?',
+    question:'Do you have rules for how long different types of data are kept — and are those rules automatically enforced, or does everything just pile up forever?',
     options:[
-      { status:'full',    label:'Fully Deployed',     desc:'Formal policy defines retention periods by data category. Policies are technically enforced via M365 retention labels or equivalent tooling.' },
-      { status:'partial', label:'Partially Deployed', desc:'A retention policy exists on paper but is not technically enforced. Data may be kept longer than necessary without automatic disposition.' },
-      { status:'none',    label:'Not in Place',       desc:'No data retention policy. Data accumulates indefinitely with no governance around storage, access, or disposition.' },
+      { status:'full',    label:'Fully Deployed',     desc:'Yes — we have written rules for how long different data is kept, and the system automatically enforces them.' },
+      { status:'partial', label:'Partially Deployed', desc:'Somewhat — we have written rules, but nothing actually enforces them, so data often sticks around longer than it should.' },
+      { status:'none',    label:'Not in Place',       desc:'No — there are no rules. Data just piles up indefinitely with no oversight.' },
     ],
-    why:'Keeping data longer than necessary increases breach exposure and legal liability. A documented, enforced retention policy is a baseline requirement for SOC 2, HIPAA, GDPR, and most cyber insurance questionnaires.' },
+    why:'Keeping data longer than necessary increases breach exposure and legal liability. A documented, enforced retention policy is a baseline requirement for SOC 2, HIPAA, GDPR, and most cyber insurance questionnaires.',
+    geek:'Refers to a formally documented retention policy by data category, technically enforced via M365 retention labels/policies or equivalent tooling — relevant for SOC 2, HIPAA, GDPR, and cyber insurance requirements.' },
 
   { id:'tickets', cat:'policy', importance:'High', weight:2,
     name:'Low Reactive Ticket Rate',
-    question:'What is your average monthly IT support ticket volume per user?',
+    question:'How often do employees run into IT problems that need a help ticket — rarely, occasionally, or constantly?',
     options:[
-      { status:'full',    label:'Excellent  (≤ 0.25 / user)',  desc:'Ticket volume is at or below 0.25 per user per month. Systems are highly stable, proactive monitoring catches issues before users notice, and recurring failure patterns are actively eliminated.' },
-      { status:'partial', label:'At Target  (0.25 – 0.5 / user)', desc:'Ticket volume is between 0.25 and 0.5 per user per month. Environment is reasonably stable but some recurring issues exist. This is the acceptable operating threshold.' },
-      { status:'none',    label:'At Risk / Failing  (> 0.5 / user)', desc:'Ticket volume exceeds 0.5 per user per month. Above 0.5 signals systemic issues — aging hardware, poor onboarding, or reactive-only management. Above 1.0 indicates a break-fix cycle.' },
+      { status:'full',    label:'Excellent',  desc:'Rarely — most employees go a month or more without needing IT help. Problems are usually caught before anyone notices.' },
+      { status:'partial', label:'At Target', desc:'Occasionally — most employees submit a ticket every couple of months. Things work, but a few recurring annoyances pop up.' },
+      { status:'none',    label:'At Risk / Failing', desc:'Constantly — employees are frequently stuck waiting on IT, which usually points to aging equipment or a support team that\'s always playing catch-up.' },
     ],
-    why:'Ticket volume is a direct proxy for infrastructure health and IT posture. High ticket rates signal aging hardware, poor onboarding, or reactive management. Low rates reflect environments designed and maintained proactively. Scored as a range: ≤0.25 = excellent, 0.25–0.5 = target, >0.5 = at risk.' },
+    why:'Ticket volume is a direct proxy for infrastructure health and IT posture. High ticket rates signal aging hardware, poor onboarding, or reactive management. Low rates reflect environments designed and maintained proactively. Scored as a range: ≤0.25 = excellent, 0.25–0.5 = target, >0.5 = at risk.',
+    geek:'Scored on average monthly ticket volume per user: ≤0.25 = excellent, 0.25–0.5 = at target, >0.5 = at risk (systemic issues), >1.0 = active break-fix cycle.' },
 
   { id:'improvement', cat:'policy', importance:'Medium', weight:1,
     name:'IT Continuous Improvement Investment',
-    question:'How would you describe your organization\'s investment in strategic IT improvement?',
+    question:'Does your company have a real budget and plan to proactively improve IT, or does IT spending only happen when something breaks?',
     options:[
-      { status:'full',    label:'Budgeted + Active Roadmap',  desc:'A defined IT project budget (~20% of MRR) is in place and a documented roadmap is reviewed quarterly. Projects are actively executed — security enhancements, migrations, tooling upgrades — not just planned.' },
-      { status:'partial', label:'Roadmap Exists, Spend Varies', desc:'A roadmap or project list exists and some improvement projects are underway, but spend is inconsistent or not formally budgeted. Execution happens opportunistically rather than on a cadence.' },
-      { status:'none',    label:'No Budget or Roadmap',       desc:'All IT spend is operational or break-fix. No dedicated project budget exists and no roadmap documents future improvements. IT improvements happen only when forced by an incident or vendor end-of-life.' },
+      { status:'full',    label:'Budgeted + Active Roadmap',  desc:'Yes — we have a dedicated budget and a real plan that gets reviewed and acted on regularly, not just talked about.' },
+      { status:'partial', label:'Roadmap Exists, Spend Varies', desc:'Somewhat — we have ideas and a rough plan, but spending is inconsistent and things get done only when there\'s time.' },
+      { status:'none',    label:'No Budget or Roadmap',       desc:'No — we only spend on IT when something breaks or a vendor forces our hand. There\'s no forward-looking plan.' },
     ],
-    why:'Organizations that consistently invest in IT improvement build compounding maturity — each completed project reduces future risk and lowers operational overhead. A documented roadmap with active execution carries weight independent of the exact spend percentage. Without one, IT is permanently reactive.' },
+    why:'Organizations that consistently invest in IT improvement build compounding maturity — each completed project reduces future risk and lowers operational overhead. A documented roadmap with active execution carries weight independent of the exact spend percentage. Without one, IT is permanently reactive.',
+    geek:'Refers to a defined IT project budget (benchmark: ~20% of MRR) with a documented roadmap reviewed quarterly and actively executed — not just planned.' },
 ];
 
 // Group items by category in order
@@ -1748,7 +1753,7 @@ function downloadReport() {
 </script>
 
 <footer class="site-footer">
-  <span class="ver">v3.7</span>
+  <span class="ver">v3.8</span>
   <span class="dot">·</span>
   <span>Last updated: August 24, 2026</span>
   <span class="dot">·</span>
