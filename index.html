@@ -1016,13 +1016,14 @@ const ITEMS = [
   // NETWORK
   { id:'network', cat:'network', importance:'High', weight:2,
     name:'Managed Network Hardware with VLAN Segmentation',
-    question:'Is your network running managed enterprise hardware with VLANs to segment traffic by function?',
+    question:'If a guest\'s laptop or a smart printer on your network got infected, could that infection spread to your core business systems?',
     options:[
-      { status:'full',    label:'Fully Deployed',     desc:'Unified managed network stack (single enterprise vendor) with VLANs for corporate, guest, IoT, VoIP, and print segments — all centrally managed.' },
-      { status:'partial', label:'Partially Deployed', desc:'Some managed hardware in place but VLANs are not fully configured, or network management is fragmented across vendors.' },
-      { status:'none',    label:'Not in Place',       desc:'Consumer-grade or unmanaged hardware. No VLAN segmentation — all devices share the same network.' },
+      { status:'full',    label:'Fully Deployed',     desc:'No — our network is divided into separate lanes (corporate, guest, printers, phones), so a problem in one area can\'t spread to the others.' },
+      { status:'partial', label:'Partially Deployed', desc:'Somewhat — some separation exists, but not everything is divided cleanly.' },
+      { status:'none',    label:'Not in Place',       desc:'Yes — everything (computers, guest devices, printers) is on one shared network, so a problem anywhere could spread everywhere.' },
     ],
-    why:'A single-vendor managed stack provides centralized visibility and consistent policy enforcement. VLANs contain lateral movement — a compromised IoT or guest device cannot reach corporate systems.' },
+    why:'A single-vendor managed stack provides centralized visibility and consistent policy enforcement. VLANs contain lateral movement — a compromised IoT or guest device cannot reach corporate systems.',
+    geek:'Refers to a managed, single-vendor network stack with VLAN segmentation (corporate, guest, IoT, VoIP, print) — e.g., Cisco Meraki, Ubiquiti, or Fortinet.' },
 
   { id:'internet', cat:'network', importance:'High', weight:2,
     name:'Redundant Internet Connectivity',
@@ -1742,7 +1743,7 @@ function downloadReport() {
 </script>
 
 <footer class="site-footer">
-  <span class="ver">v3.5</span>
+  <span class="ver">v3.6</span>
   <span class="dot">·</span>
   <span>Last updated: August 24, 2026</span>
   <span class="dot">·</span>
