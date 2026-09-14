@@ -958,17 +958,6 @@ const ITEMS = [
     why:'Privileged accounts are the highest-value target in any breach. PAM eliminates persistent admin credentials that attackers can steal and reuse, and provides a full audit trail of every privileged action.',
     geek:'Refers to Privileged Access Management (PAM) — credential vaulting, rotation, and just-in-time access via tools like CyberArk, BeyondTrust, or Microsoft Entra PIM.' },
 
-  { id:'edr', cat:'security', importance:'Critical', weight:3,
-    name:'Endpoint Detection & Response',
-    question:'If malware or ransomware landed on an employee\'s laptop, would it be caught and stopped automatically — or could it spread before anyone noticed?',
-    options:[
-      { status:'full',    label:'Fully Implemented',     desc:'Yes — it\'s detected and isolated automatically, and IT is alerted immediately.' },
-      { status:'partial', label:'Partially Implemented', desc:'Somewhat — we have antivirus, but no automatic isolation or 24/7 monitoring.' },
-      { status:'none',    label:'Not Implemented',       desc:'No — we\'d likely find out only after something broke.' },
-    ],
-    why:'Traditional antivirus only catches known threats. EDR detects suspicious behavior in real time and can automatically isolate an infected device before ransomware spreads to the rest of the network.',
-    geek:'Refers to Endpoint Detection & Response (EDR) — CrowdStrike, SentinelOne, or Microsoft Defender for Endpoint — with automated isolation and 24/7 monitoring, as opposed to signature-based antivirus alone.' },
-
   { id:'admin', cat:'security', importance:'Critical', weight:3,
     name:'No Local Admin Rights',
     question:'Can employees install any software they want on their work laptop, or does IT need to approve it first?',
@@ -1013,6 +1002,17 @@ const ITEMS = [
     ],
     why:'Hardware older than 3 years introduces firmware/TPM gaps for modern security features, increases support ticket volume, and degrades employee productivity. Standardization reduces support complexity.',
     geek:'Refers to a standardized hardware fleet with a max 3-year refresh cycle, ensuring firmware/TPM compatibility with modern security features (e.g., Windows 11 hardware requirements).' },
+
+  { id:'edr', cat:'device', importance:'Critical', weight:3,
+    name:'Endpoint Detection & Response',
+    question:'If malware or ransomware landed on an employee\'s laptop, would it be caught and stopped automatically — or could it spread before anyone noticed?',
+    options:[
+      { status:'full',    label:'Fully Implemented',     desc:'Yes — it\'s detected and isolated automatically, and IT is alerted immediately.' },
+      { status:'partial', label:'Partially Implemented', desc:'Somewhat — we have antivirus, but no automatic isolation or 24/7 monitoring.' },
+      { status:'none',    label:'Not Implemented',       desc:'No — we\'d likely find out only after something broke.' },
+    ],
+    why:'Traditional antivirus only catches known threats. EDR detects suspicious behavior in real time and can automatically isolate an infected device before ransomware spreads to the rest of the network.',
+    geek:'Refers to Endpoint Detection & Response (EDR) — CrowdStrike, SentinelOne, or Microsoft Defender for Endpoint — with automated isolation and 24/7 monitoring, as opposed to signature-based antivirus alone.' },
 
   // NETWORK
   { id:'network', cat:'network', importance:'High', weight:2,
